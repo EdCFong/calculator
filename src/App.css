@@ -1,22 +1,50 @@
-.App {
-  text-align: center;
+body 
+{
+  background:#e8f3b2;
+  font-family: 'Black Ops One', cursive;
 }
-
-.App-logo {
-  height: 40vmin;
+#Calculator
+{
+  background:rgb(37, 41, 24);
+  width: 30%;
+  margin-left: 35%;
+  margin-top: 5%;
+  height: 460px;
+  padding: 10px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#display
+{
+  background: #bfd163;
+  height: 80px;
+  text-align: right;
 }
-
-.App-link {
-  color: #09d3ac;
+#mainKeyboard
+{
+  background:rgb(26, 98, 92);
+  margin-top: 10px;
+  height: 350px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 75% 25%;
+  grid-template-rows: 280px 50px;
+  row-gap: 5%;
+}
+#keyboardNumbers
+{
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  grid-template-rows: 25% 25% 25% 25%;
+}
+#keyboardOperators
+{
+  display: grid;
+}
+#keyboardClearEquals
+{
+  display: grid;
+  grid-template-columns: 67% 67%;
+}
+.aButton
+{
+  background:rgb(78, 212, 230);
 }
