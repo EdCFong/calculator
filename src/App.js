@@ -1,79 +1,96 @@
 import React from 'react';
 import './App.css';
 
-class App extends React.Component
-{
-  constructor(props)
-  {
+class App extends React.Component {
+  constructor(props) {
     super(props);
+    this.state =
+      {
+        formula: "123+45.2",
+        result: "456",
+        keyTriggered: " "
+      }
+      this.Write = this.Write.bind(this);
+  }
+  Write(event){
+    this.setState({
+      formula: event.target.value
+    });
   }
 
-  render()
-  {
+  render() {
     return (
-       <div id="Calculator">
-         <Display/> 
-         <Keyboard/>
-       </div>
+      <div id="Calculator">
+        <Display
+          formula={this.state.formula}
+          result={this.state.result}/>
+        <Keyboard 
+          write={this.Write}/>
+      </div>
     )
   }
 }
 
-function Display()
-{
-  return(
-    <div id="display">
-         0123456789 
-    </div>
-  )
+class Display extends React.Component {
+  constructor(props){
+    super(props);
+  }
+  render(){
+    return (
+      <div id="display">
+        <div id="displayFormula">
+          {this.props.formula}
+        </div>
+        <div id="displayResult">
+          {this.props.result}
+        </div>
+      </div>
+    )
+  }
 }
 
-function Keyboard()
-{
-  return(
-    <div id="mainKeyboard">
-         <KeyboardNumbers/>
-         <KeyboardOperators/>
-         <KeyboardClearEquals/>
-    </div>
-  )
+function Keyboard(props){
+    return (
+      <div id="mainKeyboard">
+        <KeyboardNumbers write={props.write}/>
+        <KeyboardOperators write={props.write}/>
+        <KeyboardClearEquals write={props.write}/>
+      </div>
+    )
 }
-function KeyboardNumbers()
-{
-  return(
-    <div id="keyboardNumbers">
-         <button id="zero" className="aButton">0</button>
-         <button id="one" className="aButton">1</button>
-         <button id="two" className="aButton">2</button>
-         <button id="three" className="aButton">3</button>
-         <button id="four" className="aButton">4</button>
-         <button id="five" className="aButton">5</button>
-         <button id="six" className="aButton">6</button>
-         <button id="seven" className="aButton">7</button>
-         <button id="eight" className="aButton">8</button>
-         <button id="nine" className="aButton">9</button>
-         <button id="decimal" className="aButton">.</button>
-         <button id="back" className="aButton"><i class="fa fa-caret-square-o-left" aria-hidden="true"></i></button>
-    </div>
-  )
+function KeyboardNumbers(props){
+    return (
+      <div id="keyboardNumbers">
+        <button id="zero" className="numberButton" value={"0"} onClick={props.write}>0</button>
+        <button id="one" className="numberButton" value={"1"} onClick={props.write}>1</button>
+        <button id="two" className="numberButton" value={"2"} onClick={props.write}>2</button>
+        <button id="three" className="numberButton" value={"3"} onClick={props.write}>3</button>
+        <button id="four" className="numberButton" value={"4"} onClick={props.write}>4</button>
+        <button id="five" className="numberButton" value={"5"} onClick={props.write}>5</button>
+        <button id="six" className="numberButton" value={"6"} onClick={props.write}>6</button>
+        <button id="seven" className="numberButton" value={"7"} onClick={props.write}>7</button>
+        <button id="eight" className="numberButton" value={"8"} onClick={props.write}>8</button>
+        <button id="nine" className="numberButton" value={"9"} onClick={props.write}>9</button>
+        <button id="decimal" className="numberButton" value={"."} onClick={props.write}>.</button>
+        <button id="back" className="numberButton" value={"back"} onClick={props.write}><i class="fa fa-caret-square-o-left" aria-hidden="true"></i></button>
+      </div>
+    )
 }
-function KeyboardOperators()
-{
-  return(
+function KeyboardOperators(props) {
+  return (
     <div id="keyboardOperators">
-        <button id="add" className="aButton"><i class="fa fa-plus" aria-hidden="true"></i></button>
-         <button id="subtract" className="aButton"><i class="fa fa-minus" aria-hidden="true"></i></button>
-         <button id="multiply" className="aButton"><i class="fa fa-times" aria-hidden="true"></i></button>
-         <button id="divide" className="aButton"><strong>/</strong></button>
+      <button id="add" className="operatorButton" value={"add"} onClick={props.write}><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button id="subtract" className="operatorButton" value={"subtract"} onClick={props.write}><i class="fa fa-minus" aria-hidden="true"></i></button>
+      <button id="multiply" className="operatorButton" value={"multiply"} onClick={props.write}><i class="fa fa-times" aria-hidden="true"></i></button>
+      <button id="divide" className="operatorButton" value={"divide"} onClick={props.write}><strong>/</strong></button>
     </div>
   )
 }
-function KeyboardClearEquals()
-{
-  return(
+function KeyboardClearEquals(props) {
+  return (
     <div id="keyboardClearEquals">
-         <button id="clear" className="aButton">AC</button>
-         <button id="equals" className="aButton">=</button>
+      <button id="clear" value={"clear"} onClick={props.write}>AC</button>
+      <button id="equals" value={"equals"} onClick={props.write}>=</button>
     </div>
   )
 }

@@ -1,7 +1,12 @@
 body 
 {
-  background:#e8f3b2;
+  background:rgb(165, 167, 156);
   font-family: 'Black Ops One', cursive;
+}
+button
+{
+  font-family: 'Audiowide', cursive;
+  font-size: 25px;
 }
 #Calculator
 {
@@ -11,12 +16,26 @@ body
   margin-top: 5%;
   height: 460px;
   padding: 10px;
+  box-shadow: 2px 14px 23px 6px rgba(74, 82, 47, 0.75);
 }
 #display
 {
-  background: #bfd163;
-  height: 80px;
+  background: #d9dabd;
+  height: 70px;
   text-align: right;
+  padding: 5px;
+}
+#displayFormula
+{
+  height: 30px;
+  font-size: 25px;
+  color:rgb(21, 78, 73);
+}
+#displayResult
+{
+  height: 40px;
+  font-size: 30px;
+  color:rgb(20, 52, 126);
 }
 #mainKeyboard
 {
@@ -44,7 +63,71 @@ body
   display: grid;
   grid-template-columns: 67% 67%;
 }
-.aButton
+.numberButton
 {
+  color: rgb(23, 51, 95);
   background:rgb(78, 212, 230);
+  transition-duration: 0.3s;
+  border: 0.1px solid rgba(36, 62, 105, 0.342);
+}
+.numberButton:hover
+{
+  background: rgb(54, 171, 187)
+}
+.numberButton:active
+{
+  background: rgb(23, 51, 95);
+  color: white;
+  transform: translateY(2px);
+}
+.operatorButton
+{
+  color: rgb(13, 41, 87);
+  background:rgb(161, 212, 235);
+  transition-duration: 0.3s;
+  border: 0.1px solid rgba(36, 62, 105, 0.342);
+}
+.operatorButton:hover
+{
+  background:rgb(133, 181, 195);
+}
+.operatorButton:active
+{
+  background: rgb(13, 41, 87);
+  color: white;
+  transform: translateY(2px);
+}
+#clear
+{
+  color:white;
+  background:rgb(212, 32, 15);
+  transition-duration: 0.3s;
+  border: 0.1 solid white;
+}
+#clear:hover
+{
+  background:rgb(177, 32, 18);
+}
+#clear:active
+{
+  background: white;
+  color:rgb(212, 32, 15);
+  transform: translateY(2px);
+}
+#equals
+{
+  color:white;
+  background: rgb(23, 78, 207);
+  transition-duration: 0.3s;
+  border: 0.1 solid white;
+}
+#equals:hover
+{
+  background: rgb(21, 62, 156);
+}
+#equals:active
+{
+  background: white;
+  color:rgb(23, 78, 207);
+  transform: translateY(2px);
 }
