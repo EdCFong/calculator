@@ -1,4 +1,4 @@
-body 
+ body 
 {
   background:rgb(165, 167, 156);
   font-family: 'Black Ops One', cursive;
@@ -11,8 +11,8 @@ button
 #Calculator
 {
   background:rgb(37, 41, 24);
-  width: 30%;
-  margin-left: 35%;
+  width: 70%;
+  margin-left: 15%;
   margin-top: 5%;
   height: 460px;
   padding: 10px;
@@ -130,4 +130,13 @@ button
   background: white;
   color:rgb(23, 78, 207);
   transform: translateY(2px);
+}
+
+@media (min-width:900px)
+{
+  #Calculator
+  {
+    width: 30%;
+    margin-left: 35%;
+  }
 }

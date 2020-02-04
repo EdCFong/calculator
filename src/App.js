@@ -14,8 +14,40 @@ class App extends React.Component {
   }
   Write(event){
     this.setState({
-      formula: event.target.value
+      formula: this.buildFormula(event.target.value)
     });
+  }
+  buildFormula(key)
+  {
+    if(key=="equals")
+    {
+      return "time to calculate";
+    }
+    else
+    {
+      var formula = this.state.formula;
+      let regexNumbers = /[0-9]/;
+      if((regexNumbers.test(key))||(key=="-"))
+      {
+        formula = formula + key;
+      }
+      else
+      {
+        if(key="clear")
+        {
+          return " ";
+        }
+        else
+        {
+          if((formula[formula.length-1] == "+")||(formula[formula.length-1] == "-")||(formula[formula.length-1] == "*")||(formula[formula.length-1] == "/"))
+          {
+            formula = formula.substring(0, formula.length - 1);
+          }
+            formula = formula + key;
+        }
+      }
+      return formula;
+    }
   }
 
   render() {
@@ -79,10 +111,10 @@ function KeyboardNumbers(props){
 function KeyboardOperators(props) {
   return (
     <div id="keyboardOperators">
-      <button id="add" className="operatorButton" value={"add"} onClick={props.write}><i class="fa fa-plus" aria-hidden="true"></i></button>
-      <button id="subtract" className="operatorButton" value={"subtract"} onClick={props.write}><i class="fa fa-minus" aria-hidden="true"></i></button>
-      <button id="multiply" className="operatorButton" value={"multiply"} onClick={props.write}><i class="fa fa-times" aria-hidden="true"></i></button>
-      <button id="divide" className="operatorButton" value={"divide"} onClick={props.write}><strong>/</strong></button>
+      <button id="add" className="operatorButton" value={"+"} onClick={props.write}><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button id="subtract" className="operatorButton" value={"-"} onClick={props.write}><i class="fa fa-minus" aria-hidden="true"></i></button>
+      <button id="multiply" className="operatorButton" value={"*"} onClick={props.write}><i class="fa fa-times" aria-hidden="true"></i></button>
+      <button id="divide" className="operatorButton" value={"/"} onClick={props.write}><strong>/</strong></button>
     </div>
   )
 }
