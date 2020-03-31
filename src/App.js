@@ -6,15 +6,52 @@ class App extends React.Component {
     super(props);
     this.state =
     {
-      formula: "123+45.2",
-      result: "456",
-      keyTriggered: " "
+      formula: "",
+      result: "0",
+      keyTriggered: " ",
+      calculated: false
     }
     this.Write = this.Write.bind(this);
+    this.Calculate = this.Calculate.bind(this);
   }
   Write(event) {
+    if (this.state.calculated) {
+      this.setState({
+        formula: event.target.value,
+        result: event.target.value,
+        calculated: false
+      });
+    }
+    else {
+      this.setState({
+        formula: this.BuildFormula(event.target.value),
+        result: this.WriteResult(event.target.value)
+      });
+    }
+  }
+  WriteResult(key) {
+    if (key == "back") {
+      return "";
+    }
+    if (key == "clear") {
+      return "0";
+    }
+    if ((key == '+') || (key == 'x') || (key == '/') || (key == '-')) {
+      return key;
+    }
+    else {
+      var res = this.state.result + key;
+      return parseFloat(res);
+    }
+  }
+  Calculate(event) {
+    var expression = this.state.formula;
+    expression = expression.replace(/x/g, "*");
+    var solved = eval(expression);
     this.setState({
-      formula: this.BuildFormula(event.target.value)
+      formula: this.state.formula + "=" + solved,
+      result: solved,
+      calculated: true
     });
   }
   BuildFormula(key)  //Keys possibilities: 0 1 2 3 4 5 6 7 8 9 . + - * / = back clear
@@ -38,7 +75,10 @@ class App extends React.Component {
       return formula;
     }
     if (key == "-") {
-      if ((lastKey == '+') || (lastKey == 'x') || (lastKey == '/') || (lastKey == '-')) {
+      if (lastKey == '-') {
+        return formula;
+      }
+      if ((lastKey == '+') || (lastKey == 'x') || (lastKey == '/')) {
         if ((beforelastKey == '+') || (beforelastKey == 'x') || (beforelastKey == '/') || (beforelastKey == '-') || (beforelastKey == '.')) {
           formula = this.EraseLastKey(formula);
         }
@@ -49,12 +89,19 @@ class App extends React.Component {
       if (formula == "") {
         return formula;
       }
-      if ((lastKey == '+') || (lastKey == 'x') || (lastKey == '/') || (lastKey == '.')) {
+      if ((lastKey == '+') || (lastKey == 'x') || (lastKey == '/') || (lastKey == '.') || (lastKey == '-')) {
         //If the last key was a symbol, replace it for the new symbol
-        formula = this.EraseLastKey(formula);
-      }
-      if (lastKey == '-') {
-        return formula;
+        if (lastKey == '-') {
+          if ((beforelastKey == '+') || (beforelastKey == 'x') || (beforelastKey == '/') || (beforelastKey == '-') || (beforelastKey == '.')) {
+            formula = this.EraseBeforeLastKey(formula);
+          }
+          else {
+            formula = this.EraseLastKey(formula);
+          }
+        }
+        else {
+          formula = this.EraseLastKey(formula);
+        }
       }
       return formula + key;
     }
@@ -79,7 +126,10 @@ class App extends React.Component {
     var result = formula.substring(0, formula.length - 1);
     return result;
   }
-
+  EraseBeforeLastKey(formula) {
+    var result = formula.substring(0, formula.length - 2);
+    return result;
+  }
   render() {
     return (
       <div id="Calculator">
@@ -87,7 +137,8 @@ class App extends React.Component {
           formula={this.state.formula}
           result={this.state.result} />
         <Keyboard
-          write={this.Write} />
+          write={this.Write}
+          calculate={this.Calculate} />
       </div>
     )
   }
@@ -116,7 +167,7 @@ function Keyboard(props) {
     <div id="mainKeyboard">
       <KeyboardNumbers write={props.write} />
       <KeyboardOperators write={props.write} />
-      <KeyboardClearEquals write={props.write} />
+      <KeyboardClearEquals write={props.write} calculate={props.calculate} />
     </div>
   )
 }
@@ -152,7 +203,7 @@ function KeyboardClearEquals(props) {
   return (
     <div id="keyboardClearEquals">
       <button id="clear" value={"clear"} onClick={props.write}>AC</button>
-      <button id="equals" value={"="} onClick={props.write}>=</button>
+      <button id="equals" value={"="} onClick={props.calculate}>=</button>
     </div>
   )
 }
